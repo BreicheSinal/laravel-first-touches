@@ -30,7 +30,9 @@ postcss.config.js
 tailwind.config.js
 .editorconfig
 /bootstrap
-/database
+/database/factories
+/database/seeders
+/database/.gitignore
 /resources
 /app/providers
 /storage
