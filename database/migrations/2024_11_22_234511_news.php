@@ -6,19 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
-    public function up(): void
-    {
-        //
+    public function up(): void{
+        Schema::create('news', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->text('content');
+            $table->integer('age')->nullable();
+            $table->string('attachment')->nullable();
+            $table->timestamps();
+            $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
-    {
-        //
+    public function down(): void{
+        Schema::dropIfExists('news');
     }
 };
