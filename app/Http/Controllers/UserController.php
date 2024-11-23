@@ -21,14 +21,12 @@ class UserController extends Controller
         // validating request data
         $validated = $request->validate([
             'content' => 'required|string',
-            'attachment' => 'nullable|file',
         ]);
 
         // saving file in public storage
-        $attachment = null;
-        if ($request->hasFile('attachment')) {
-            $attachment = $request->file('attachment')->store('attachments', 'public');
-        }
+        $attachment = $request->hasFile('attachment') 
+        ? $request->file('attachment')->store('attachments') 
+        : null;
 
         // creating a new article
         $article = Article::create([

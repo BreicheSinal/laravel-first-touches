@@ -23,14 +23,12 @@ class AdminController extends Controller
             'title' => 'required|string',
             'content' => 'required|string',
             'age' => 'nullable|integer',
-            'attachment' => 'nullable|file',
         ]);
 
         // saving file in public storage
-        $attachment = null;
-        if ($request->hasFile('attachment')) {
-            $attachment = $request->file('attachment')->store('attachments', 'public');
-        }
+        $attachment = $request->hasFile('attachment') 
+        ? $request->file('attachment')->store('attachments') 
+        : null;
 
         // creating news
         $news = News::create([
@@ -57,6 +55,12 @@ class AdminController extends Controller
             'content' => 'required|string',
             'age' => 'nullable|integer',
         ]);
+
+        // saving file in public storage
+        $attachment = $request->hasFile('attachment') 
+        ? $request->file('attachment')->store('attachments') 
+        : null;
+
 
     }
 }
