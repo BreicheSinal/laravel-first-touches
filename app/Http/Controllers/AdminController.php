@@ -26,5 +26,11 @@ class AdminController extends Controller
             'attachment' => 'nullable|file',
         ]);
 
+        // saving file in public storage
+        $attachment = null;
+        if ($request->hasFile('attachment')) {
+            $attachment = $request->file('attachment')->store('attachments', 'public');
+        }
+
     }
 }
