@@ -14,7 +14,7 @@ return new class extends Migration
             $table->integer('age')->nullable();
             $table->string('attachment')->nullable();
             $table->timestamps();
-            $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
         });
     }
 

@@ -9,7 +9,7 @@ class News extends Model{
         "title", 
         "content", 
         "age", 
-        "age", 
+        "attachment", 
         "admin_id", 
     ];
 }
