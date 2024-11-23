@@ -8,15 +8,22 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    function post_news(Request $request, $admin_id){
+     // checking if user && admin
+     private function check_admin($admin_id)
+     {
+         $user = User::find($admin_id);
+         if (!$user || $user->role !== 'admin') {
+             return response()->json([
+                 'error' => 'Unauthorized: User is not an admin'
+             ], 403);
+         }
+     }
 
-        //checking if user exists
-        $user = User::find($admin_id);
-        if (!$user) {
-            return response()->json([
-                'error' => 'User not found'
-            ],404);
-        }
+    function post_news(Request $request, $admin_id){
+        //admin check before proceeding
+        $adminCheck = $this->check_admin($admin_id);
+        if ($adminCheck) return $adminCheck;  
+        
 
         // validating request data
         $validated = $request->validate([
@@ -45,7 +52,11 @@ class AdminController extends Controller
         ]);
     }
 
-    public function editNews(Request $request, $id){
+    public function editNews(Request $request,  $admin_id, $id){
+        //admin check before proceeding
+        $adminCheck = $this->check_admin($admin_id);
+        if ($adminCheck) return $adminCheck; 
+
         $news = News::findOrFail($id);
 
         // validating request data
@@ -75,7 +86,11 @@ class AdminController extends Controller
 
     }
 
-    public function deleteNews($id){
+    public function deleteNews($admin_id, $id){
+        //admin check before proceeding
+        $adminCheck = $this->check_admin($admin_id);
+        if ($adminCheck) return $adminCheck; 
+
         $news = News::findOrFail($id);
 
         $news->delete();
