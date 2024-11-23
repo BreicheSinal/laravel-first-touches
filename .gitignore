@@ -42,4 +42,3 @@ tailwind.config.js
 /public
 .gitattributes
 package.json
-README.md
