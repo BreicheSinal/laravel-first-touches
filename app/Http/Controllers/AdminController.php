@@ -46,4 +46,17 @@ class AdminController extends Controller
             "news" => $news
         ]);
     }
+
+    public function editNews(Request $request, $id)
+    {
+        $news = News::findOrFail($id);
+
+        // validating request data
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'age' => 'nullable|integer',
+        ]);
+
+    }
 }
