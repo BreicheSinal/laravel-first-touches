@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    function post_news(Request $request, $user_id){
+    function post_news(Request $request, $admin_id){
 
         //checking if user exists
-        $user = User::find($user_id);
+        $user = User::find($admin_id);
         if (!$user) {
             return response()->json([
-                'error' => 'User not found'], 
-            404);
+                'error' => 'User not found'
+            ],404);
         }
 
         // validating request data
@@ -32,5 +32,18 @@ class AdminController extends Controller
             $attachment = $request->file('attachment')->store('attachments', 'public');
         }
 
+        // creating news
+        $news = News::create([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'age' => $validated['age'],
+            'attachment' => $attachment,
+            'admin_id' => $admin_id, 
+        ]);
+
+        return response()->json([
+            "message" => "News created successfully",
+            "news" => $news
+        ]);
     }
 }
