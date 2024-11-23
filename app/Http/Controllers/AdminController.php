@@ -61,6 +61,18 @@ class AdminController extends Controller
         ? $request->file('attachment')->store('attachments') 
         : null;
 
+        // updating news 
+        $news->update([
+            'title' => $validated['title'],
+            'content' => $validated['content'],
+            'age' => $validated['age'],
+            'attachment' => $attachment,
+        ]);
+
+        return response()->json([
+            "message" => "News updated created successfully",
+            "updated_news" => $news
+        ]);
 
     }
 }
