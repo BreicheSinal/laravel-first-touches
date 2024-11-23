@@ -45,8 +45,7 @@ class AdminController extends Controller
         ]);
     }
 
-    public function editNews(Request $request, $id)
-    {
+    public function editNews(Request $request, $id){
         $news = News::findOrFail($id);
 
         // validating request data
@@ -74,5 +73,15 @@ class AdminController extends Controller
             "updated_news" => $news
         ]);
 
+    }
+
+    public function deleteNews($id){
+        $news = News::findOrFail($id);
+
+        $news->delete();
+
+        return response()->json([
+            'message' => 'News deleted successfully'
+        ]);
     }
 }
