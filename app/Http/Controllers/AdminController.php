@@ -18,5 +18,13 @@ class AdminController extends Controller
             404);
         }
 
+        // validating request data
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'content' => 'required|string',
+            'age' => 'nullable|integer',
+            'attachment' => 'nullable|file',
+        ]);
+
     }
 }
