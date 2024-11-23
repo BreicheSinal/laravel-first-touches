@@ -21,6 +21,12 @@ class UserController extends Controller
         $validated = $request->validate([
             'content' => 'required|string',
             'attachment' => 'nullable|file',
-        ]);    
+        ]);
+
+        // saving file in public storage
+        $attachment = null;
+        if ($request->hasFile('attachment')) {
+            $attachment = $request->file('attachment')->store('attachments', 'public');
+        }
     }
 }
