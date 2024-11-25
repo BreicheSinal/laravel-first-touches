@@ -42,3 +42,4 @@ tailwind.config.js
 /public
 .gitattributes
 package.json
+/database
